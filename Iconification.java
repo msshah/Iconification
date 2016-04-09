@@ -225,10 +225,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     shellOutput("Creating ICNS...");
                     String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + "AppIcon.icns";
                     
-                    shellOutput("ICNS Shell : " + sShellCommand);
-                    
+                    shellOutput("Starting ICNS Shell process...");
                     Process processICNSShell = runtime.exec(sShellCommand);
-                    
+                    shellOutput("executed...");
                     BufferedReader bufferedReaderError = new BufferedReader(new InputStreamReader(processICNSShell.getErrorStream()));
                     
                     sBuilderShellOutput = new StringBuilder();
@@ -238,6 +237,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                         sBuilderShellOutput.append(sShellOutput);
                         sBuilderShellOutput.append("\n");
                     }
+                    shellOutput("Done.");
                     bufferedReaderError.close();
                     
                 } catch(Exception X) {
@@ -291,7 +291,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
     }
     // method to output string
     private final void shellOutput(String sMessage) {
-    	shellOutput(sMessage);
+    	System.out.println(sMessage);
     } // end of shellOutput
     // action performed method
     public void actionPerformed(ActionEvent actionEvent) {
