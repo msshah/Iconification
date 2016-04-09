@@ -51,6 +51,9 @@ import java.util.List;
 
 public class Iconification extends JFrame implements DropTargetListener, ActionListener {
     
+    // Resolutions
+    int[] iResolutions = {16, 32, 64, 128, 256, 512};
+    
     // Strings
     private StringBuilder sBuilderShellOutput;
     
@@ -194,7 +197,6 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         
         if(fileIconsetFolder.exists()) {
             String sIconsetPath = fileIconsetFolder.getPath() + "/";
-            int[] iResolutions = {16, 32, 64, 128, 256, 512, 1024};
             Runtime runtime = Runtime.getRuntime();
             shellOutput("preparing different resolutions...");
             for(int i = 0; i < iResolutions.length; i++) {
@@ -299,8 +301,4 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
             System.exit(0);
         }
     } // end of actionPerformed
-    // main
-    public static void main(String[] args) {
-        Iconification iconification = new Iconification();
-    } // end of main
-}
+} // end of class
