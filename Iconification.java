@@ -206,10 +206,10 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     int iRES = iResolutions[i];
                     int iRESSECONDFILE = iRES;
                     
-                    System.out.println("**********First iRES : " + iRES);
+                    System.out.println("*First iRES : " + iRES);
                     String sSetOne = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRES + "x" + iRES + "@1x.png";
                     iRES = iRES * 2;
-                    System.out.println("**********Second iRES {" + iRES + "}");
+                    System.out.println("*Second iRES {" + iRES + "}");
                     String sSetTwo = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRESSECONDFILE + "x" + iRESSECONDFILE + "@2x.png";
                     iRESSECONDFILE = iRES;
                     System.out.println("Executing sips to create icon set...");
