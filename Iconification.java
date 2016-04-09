@@ -287,7 +287,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                 bVALIDIMAGE = true;
             }
         } catch(Exception X) {
-            X.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Invalid image file provided.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return(bVALIDIMAGE);
     }
