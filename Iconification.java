@@ -196,23 +196,23 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
             String sIconsetPath = fileIconsetFolder.getPath() + "/";
             int[] iResolutions = {16, 32, 64, 128, 256, 512, 1024};
             Runtime runtime = Runtime.getRuntime();
-            System.out.println("preparing different resolutions...");
+            shellOutput("preparing different resolutions...");
             for(int i = 0; i < iResolutions.length; i++) {
                 try {
                     
-                    System.out.println("Working on resolution " + iResolutions[i] + "...");
-                    System.out.println("Path used is : " + fileImage.getPath());
+                    shellOutput("Working on resolution " + iResolutions[i] + "...");
+                    shellOutput("Path used is : " + fileImage.getPath());
                     
                     int iRES = iResolutions[i];
                     int iRESSECONDFILE = iRES;
                     
-                    System.out.println("*First iRES : " + iRES);
+                    shellOutput("*First iRES : " + iRES);
                     String sSetOne = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRES + "x" + iRES + "@1x.png";
                     iRES = iRES * 2;
-                    System.out.println("*Second iRES {" + iRES + "}");
+                    shellOutput("*Second iRES {" + iRES + "}");
                     String sSetTwo = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRESSECONDFILE + "x" + iRESSECONDFILE + "@2x.png";
                     iRESSECONDFILE = iRES;
-                    System.out.println("Executing sips to create icon set...");
+                    shellOutput("Executing sips to create icon set...");
                     
                     Process processSetOne = runtime.exec(sSetOne);
                     processSetOne.waitFor();
@@ -220,12 +220,12 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     Process processSetTwo = runtime.exec(sSetTwo);
                     processSetTwo.waitFor();
                     
-                    System.out.println("done.");
+                    shellOutput("done.");
                     
-                    System.out.println("Creating ICNS...");
+                    shellOutput("Creating ICNS...");
                     String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + "AppIcon.icns";
                     
-                    System.out.println("ICNS Shell : " + sShellCommand);
+                    shellOutput("ICNS Shell : " + sShellCommand);
                     
                     Process processICNSShell = runtime.exec(sShellCommand);
                     
@@ -249,7 +249,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                 File fileIconset = new File(sIcnsPath);
                 
                 if(fileIconset.exists()) {
-                    System.out.println("ICNS Generated successfully.");
+                    shellOutput("ICNS Generated successfully.");
                     jLabelImage.setIcon(null);
                     jLabelImage.setText("Done");
                 }
@@ -289,7 +289,10 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         }
         return(bVALIDIMAGE);
     }
-    
+    // method to output string
+    private final void shellOutput(String sMessage) {
+    	shellOutput(sMessage);
+    } // end of shellOutput
     // action performed method
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getSource() == jButtonExit) {
