@@ -225,7 +225,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     shellOutput("done.");
                     
                     shellOutput("Creating ICNS...");
-                    String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + "AppIcon.icns";
+                    shellOutput(fileIconsetFolder.getPath().toString());
+                    String sICNSPath = fileIconsetFolder.getParent().toString() + "/";
+                    String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + sICNSPath + "AppIcon.icns";
                     
                     shellOutput("Starting ICNS Shell process...");
                     Process processICNSShell = runtime.exec(sShellCommand);
@@ -241,7 +243,6 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     }
                     shellOutput("Done.");
                     bufferedReaderError.close();
-                    
                 } catch(Exception X) {
                     JOptionPane.showMessageDialog(this, X.toString(), "Output", JOptionPane.ERROR_MESSAGE);
                 }// end of try-catch
