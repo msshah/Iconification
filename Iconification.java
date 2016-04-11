@@ -212,7 +212,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     String sSetOne = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRES + "x" + iRES + "@1x.png";
                     iRES = iRES * 2;
                     shellOutput("*Second iRES {" + iRES + "}");
+                    shellOutput("Iconset Path 1 : " + sIconsetPath);
                     String sSetTwo = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRESSECONDFILE + "x" + iRESSECONDFILE + "@2x.png";
+                    shellOutput("Iconset Path 2 : " + sIconsetPath);
                     iRESSECONDFILE = iRES;
                     shellOutput("Executing sips to create icon set...");
                     
@@ -226,8 +228,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     
                     shellOutput("Creating ICNS...");
                     shellOutput(fileIconsetFolder.getPath().toString());
-                    String sICNSPath = fileIconsetFolder.getParent().toString() + "/";
-                    String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + sICNSPath + "AppIcon.icns";
+                    String sICNSPath = fileIconsetFolder.getParent().toString() + "/" + "AppIcon.icns";
+                    shellOutput("ICNS PATH IS : " + sICNSPath);
+                    String sShellCommand = "iconutil -c icns" + " " + fileIconsetFolder.getPath() + " " + "-o" + " " + sICNSPath;
                     
                     shellOutput("Starting ICNS Shell process...");
                     Process processICNSShell = runtime.exec(sShellCommand);
