@@ -164,9 +164,13 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     File fileDropped = (File)iteratorFileList.next();
                     
                     if(!fileDropped.isDirectory()) {
+                        
                         if(verifyImageResolutionRequirement(fileDropped.getAbsolutePath())) {
+                            
                             imageIconPicture = new ImageIcon(fileDropped.getAbsolutePath());
+                            
                             // Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+                            
                             Image imageScaled = ((Image)imageIconPicture.getImage()).getScaledInstance(iWIDTH, iHEIGHT, Image.SCALE_SMOOTH);
                             ImageIcon imageIconScaled = new ImageIcon(imageScaled);
                             jLabelImage.setText("");
@@ -174,7 +178,12 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                             IS_IMAGE_SET = true;
                             
                             // call method to generate Icon set of the image provided
-                            generateIconset(fileDropped);
+                            File filePolicyImplemented = implementFileNamePolicy(fileDropped);
+                            
+                            shellOutput("BEFORE PROCESSING : " + filePolicyImplemented.getAbsolutePath() + "\n\n");
+                            
+                            generateIconset(filePolicyImplemented);
+                            
                         } else {
                             jLabelImage.setIcon(null);
                             jLabelImage.setText("This image is either too small or too large.");
@@ -187,9 +196,33 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         }
     } // end of method acceptDropGetLink
     
+    // method to implement file name policy
+    private final File implementFileNamePolicy(File fileImage) {
+        try {
+            
+            String[] sFILENAME = fileImage.getName().split(" ");
+            
+            StringBuilder sBuilderFileName = new StringBuilder();
+            
+            for(int i = 0; i < sFILENAME.length; i++) {
+                sBuilderFileName.append(sFILENAME[i]);
+            }
+            
+            File filePolicyImplementedFileName = new File(fileImage.getParent() + "/" + sBuilderFileName.toString());
+            
+            fileImage.renameTo(filePolicyImplementedFileName);
+            
+            return(filePolicyImplementedFileName);
+        } catch(Exception X) {
+            return(fileImage);
+        }
+    } // end of implementFileNamePolicy
+    
     // method to generate Iconset
     private final void generateIconset(File fileImage) {
         String sParentPath = fileImage.getParent().toString() + "/";
+        
+        shellOutput(fileImage.getName());
         
         // create iconset directory
         File fileIconsetFolder = new File(sParentPath + "AppIcon.iconset");
@@ -214,6 +247,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     shellOutput("*Second iRES {" + iRES + "}");
                     shellOutput("Iconset Path 1 : " + sIconsetPath);
                     String sSetTwo = "sips -Z" + " " + iRES + " " + fileImage.getPath() +  " " + "-o" + " " + sIconsetPath + "icon_" + iRESSECONDFILE + "x" + iRESSECONDFILE + "@2x.png";
+                    shellOutput(sSetOne);
                     shellOutput("Iconset Path 2 : " + sIconsetPath);
                     iRESSECONDFILE = iRES;
                     shellOutput("Executing sips to create icon set...");
