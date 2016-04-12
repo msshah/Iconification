@@ -16,6 +16,7 @@ import java.lang.Runtime;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -121,9 +122,12 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
     private void finalizeUI() {
         jPanelImage.setBorder(null);
         setLayout(new BorderLayout());
-        setUndecorated(false);
+        setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(480, 500);
+        setSize(500, 500);
+        setMaximumSize(dimensionPreferredSize);
+        setMinimumSize(dimensionMinimumSize);
+        setPreferredSize(dimensionPreferredSize);
         setLocation(iX, iY);
         
         jPanelImage.setLayout(new BorderLayout());
@@ -134,6 +138,10 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         jButtonExit.setFocusable(false);
         // add UI Components
         // add(jButtonExit, BorderLayout.SOUTH);
+        jLabelImage.setOpaque(false);
+        jLabelImage.setForeground(Color.GRAY);
+        jPanelImage.setBackground(Color.GRAY.darker());
+        setBackground(Color.GRAY.darker());
         setTitle(Properties.sAPPLICATION_TITLE);
         setVisible(true);
     }
