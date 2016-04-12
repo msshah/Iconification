@@ -52,7 +52,7 @@ import java.util.List;
 public class Iconification extends JFrame implements DropTargetListener, ActionListener {
     
     // Resolutions
-    int[] iResolutions = {16, 32, 64, 128, 256, 512};
+    int[] iResolutions = Properties.iResolutions;
     
     // Strings
     private StringBuilder sBuilderShellOutput;
@@ -77,9 +77,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
     private int iY;
     
     // Frame Size
-    private Dimension dimensionPreferredSize = new Dimension(iWIDTH, iHEIGHT);
-    private Dimension dimensionMaximumSize = new Dimension(iWIDTH, iHEIGHT);
-    private Dimension dimensionMinimumSize = new Dimension(iWIDTH, iHEIGHT);
+    private Dimension dimensionPreferredSize = Properties.dimensionUniversalFrameSize;
+    private Dimension dimensionMaximumSize = Properties.dimensionUniversalFrameSize;
+    private Dimension dimensionMinimumSize = Properties.dimensionUniversalFrameSize;
     
     // ImageIcon
     private ImageIcon imageIconPicture;
@@ -109,9 +109,9 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
     } // end of initDependencies
     // method to initialise UI components
     private void initUIComponents() {
-        jButtonExit = new JButton("Exit");
+        jButtonExit = new JButton(Properties.sEXIT_BUTTON_TITLE);
         jPanelImage = new JPanel();
-        jLabelImage = new JLabel("image goes here", SwingConstants.CENTER);
+        jLabelImage = new JLabel(Properties.sIMAGE_PLACEHOLDER_TEXT, SwingConstants.CENTER);
     } // end of initUIComponents
     // method to attach Action Listeners to UI Components
     private void attachListeners() {
@@ -119,7 +119,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
     } // end of attachListeners
     // method to finalize UI
     private void finalizeUI() {
-        jPanelImage.setBorder(BorderFactory.createEtchedBorder());
+        jPanelImage.setBorder(null);
         setLayout(new BorderLayout());
         setUndecorated(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -134,6 +134,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         jButtonExit.setFocusable(false);
         // add UI Components
         // add(jButtonExit, BorderLayout.SOUTH);
+        setTitle(Properties.sAPPLICATION_TITLE);
         setVisible(true);
     }
     public void drop(DropTargetDropEvent dtdeDrop) {
@@ -225,7 +226,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
         shellOutput(fileImage.getName());
         
         // create iconset directory
-        File fileIconsetFolder = new File(sParentPath + "AppIcon.iconset");
+        File fileIconsetFolder = new File(sParentPath + Properties.sICONSET_FOLDER_NAME);
         fileIconsetFolder.mkdir();
         
         if(fileIconsetFolder.exists()) {
@@ -274,10 +275,12 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                     sBuilderShellOutput = new StringBuilder();
                     String sShellOutput;
                     
+                    // read error stream
                     while((sShellOutput = bufferedReaderError.readLine()) != null) {
                         sBuilderShellOutput.append(sShellOutput);
                         sBuilderShellOutput.append("\n");
-                    }
+                    } // end of while
+                    
                     shellOutput("Done.");
                     bufferedReaderError.close();
                 } catch(Exception X) {
@@ -285,7 +288,7 @@ public class Iconification extends JFrame implements DropTargetListener, ActionL
                 }// end of try-catch
             } // end of for
             
-            String sIcnsPath = fileIconsetFolder.getParent() + "/" + "AppIcon.icns";
+            String sIcnsPath = fileIconsetFolder.getParent() + "/" + Properties.sICONSET_FOLDER_NAME;
                 File fileIconset = new File(sIcnsPath);
                 
                 if(fileIconset.exists()) {
