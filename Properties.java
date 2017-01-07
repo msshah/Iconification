@@ -19,6 +19,7 @@ public final class Properties {
     public static int[] iResolutions = {16, 32, 64, 128, 256, 512};
     public static Dimension dimensionUniversalFrameSize = new Dimension(500, 400);
     
+    public static String sAPPLICATION_TITLE = "Iconification by msshah";
     public static String sEXIT_BUTTON_TITLE = "Exit";
     public static String sIMAGE_PLACEHOLDER_TEXT = "image goes here";
     
